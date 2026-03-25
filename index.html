@@ -23,7 +23,7 @@
       overflow-x: hidden;
     }
 
-    /* Canvas للخلفية المتحركة - أكواد واضحة بألوان جميلة */
+    /* Canvas للخلفية المتحركة */
     #codeCanvas {
       position: fixed;
       top: 0;
@@ -46,7 +46,80 @@
       z-index: 1;
     }
 
-    /* Container */
+    /* ========== شاشة البصمة ========== */
+    .fingerprint-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #e8edff 0%, #f0f4ff 100%);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 1;
+      backdrop-filter: blur(10px);
+    }
+
+    .fingerprint-screen.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .fingerprint-card {
+      text-align: center;
+      cursor: pointer;
+      transform: scale(1);
+      transition: transform 0.3s ease;
+    }
+
+    .fingerprint-card:hover {
+      transform: scale(1.05);
+    }
+
+    .fingerprint-icon {
+      font-size: 8rem;
+      background: linear-gradient(135deg, #646cff, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 0 20px rgba(100, 108, 255, 0.5));
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(100, 108, 255, 0.3));
+        transform: scale(1);
+      }
+      50% {
+        filter: drop-shadow(0 0 30px rgba(100, 108, 255, 0.7));
+        transform: scale(1.05);
+      }
+    }
+
+    .fingerprint-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #2d2f6e, #646cff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 2px;
+      margin-top: 1rem;
+    }
+
+    .fingerprint-sub {
+      font-size: 0.9rem;
+      color: #646cff;
+      margin-top: 0.5rem;
+      opacity: 0.8;
+    }
+
+    /* Container الموقع التعريفي - يبدأ مخفي */
     .container {
       position: relative;
       z-index: 2;
@@ -55,9 +128,19 @@
       align-items: center;
       min-height: 100vh;
       padding: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
     }
 
-    /* البطاقة الرئيسية - أبيض نظيف مع ظل أنيق */
+    .container.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* البطاقة الرئيسية */
     .card {
       max-width: 920px;
       width: 100%;
@@ -368,6 +451,8 @@
       .info-value { font-size: 0.95rem; }
       .profile { width: 100px; height: 100px; }
       .btn { padding: 0.7rem 1rem; font-size: 0.85rem; }
+      .fingerprint-icon { font-size: 5rem; }
+      .fingerprint-text { font-size: 1.2rem; }
     }
   </style>
 </head>
@@ -375,7 +460,19 @@
   <canvas id="codeCanvas"></canvas>
   <div class="overlay-light"></div>
 
-  <div class="container">
+  <!-- شاشة البصمة -->
+  <div id="fingerprintScreen" class="fingerprint-screen">
+    <div class="fingerprint-card" id="fingerprintBtn">
+      <div class="fingerprint-icon">
+        <i class="fas fa-fingerprint"></i>
+      </div>
+      <div class="fingerprint-text">TOUCH TO ENTER</div>
+      <div class="fingerprint-sub">اضغط للدخول</div>
+    </div>
+  </div>
+
+  <!-- الموقع التعريفي (يبدأ مخفي) -->
+  <div id="mainContainer" class="container">
     <div class="card">
       <div class="header">
         <div class="profile">
@@ -472,19 +569,18 @@
     </div>
   </div>
 
-  <audio id="bgSong" autoplay loop style="display: none;">
+  <audio id="bgSong" style="display: none;">
     <source src="song.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    // ========== خلفية متحركة بأكواد برمجية واضحة بألوان جميلة ==========
+    // ========== خلفية متحركة بأكواد برمجية ==========
     const canvas = document.getElementById('codeCanvas');
     const ctx = canvas.getContext('2d');
     
     let width, height;
     let particles = [];
     
-    // أكواد برمجية من لغات مختلفة
     const codeStrings = [
       "<?php echo 'Hello Ahmed'; ?>",
       "$conn = new mysqli($host, $user, $pass);",
@@ -531,16 +627,15 @@
       }
       
       draw() {
-        // ألوان جميلة ومتناسقة للأكواد
         let color;
         if (this.text.includes('<?php') || this.text.includes('$') || this.text.includes('foreach')) {
-          color = `rgba(100, 108, 255, ${this.opacity})`; // أزرق بنفسجي
+          color = `rgba(100, 108, 255, ${this.opacity})`;
         } else if (this.text.includes('def') || this.text.includes('import') || this.text.includes('pip')) {
-          color = `rgba(168, 85, 247, ${this.opacity})`; // بنفسجي
+          color = `rgba(168, 85, 247, ${this.opacity})`;
         } else if (this.text.includes('const') || this.text.includes('function') || this.text.includes('console')) {
-          color = `rgba(34, 197, 94, ${this.opacity})`; // أخضر
+          color = `rgba(34, 197, 94, ${this.opacity})`;
         } else if (this.text.includes('SELECT') || this.text.includes('INSERT')) {
-          color = `rgba(249, 115, 22, ${this.opacity})`; // برتقالي
+          color = `rgba(249, 115, 22, ${this.opacity})`;
         } else {
           color = `rgba(100, 108, 255, ${this.opacity})`;
         }
@@ -573,7 +668,6 @@
     function animate() {
       ctx.clearRect(0, 0, width, height);
       
-      // خلفية بيضاء نظيفة
       const gradient = ctx.createLinearGradient(0, 0, width, height);
       gradient.addColorStop(0, '#fefefe');
       gradient.addColorStop(0.5, '#f8faff');
@@ -596,14 +690,38 @@
     initCanvas();
     animate();
     
-    // تشغيل الموسيقى
-    const audio = document.getElementById('bgSong');
-    audio.volume = 0.35;
-    audio.play().catch(e => {
-      document.body.addEventListener('click', function playOnce() {
-        audio.play();
-        document.body.removeEventListener('click', playOnce);
-      }, { once: true });
+    // ========== البصمة وتشغيل الموسيقى وظهور المحتوى ==========
+    const fingerprintScreen = document.getElementById('fingerprintScreen');
+    const mainContainer = document.getElementById('mainContainer');
+    const fingerprintBtn = document.getElementById('fingerprintBtn');
+    const bgAudio = document.getElementById('bgSong');
+    
+    // ضبط مستوى الصوت
+    bgAudio.volume = 0.35;
+    
+    // وظيفة تشغيل الموسيقى وإظهار المحتوى
+    function unlockAndPlay() {
+      // تشغيل الموسيقى
+      bgAudio.play().catch(e => {
+        console.log('Audio play failed:', e);
+      });
+      
+      // إخفاء شاشة البصمة
+      fingerprintScreen.classList.add('hide');
+      
+      // إظهار المحتوى الرئيسي مع تأثير
+      setTimeout(() => {
+        mainContainer.classList.add('show');
+      }, 100);
+    }
+    
+    // عند النقر على البصمة أو على أي جزء من شاشة البصمة
+    fingerprintBtn.addEventListener('click', unlockAndPlay);
+    
+    // دعم اللمس للأجهزة المحمولة
+    fingerprintBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      unlockAndPlay();
     });
     
     // معالجة الصورة
