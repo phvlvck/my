@@ -642,38 +642,46 @@
     const mainContainer = document.getElementById('mainContainer');
     const fingerprintBtn = document.getElementById('fingerprintBtn');
     const bgAudio = document.getElementById('bgSong');
-    let musicStarted = false;
+    let unlocked = false;
     
-    bgAudio.volume = 0.35;
+    // ضبط مستوى الصوت
+    bgAudio.volume = 0.4;
     
     function unlockAndPlay() {
-      if (musicStarted) return;
-      musicStarted = true;
+      if (unlocked) return;
+      unlocked = true;
       
       // تشغيل الموسيقى
-      bgAudio.play().catch(e => {
-        console.log('Audio play error:', e);
+      bgAudio.play().then(() => {
+        console.log('🎵 Music started successfully');
+      }).catch((error) => {
+        console.log('Audio play error:', error);
+        // محاولة تشغيل مرة أخرى
+        setTimeout(() => {
+          bgAudio.play().catch(e => console.log('Retry failed:', e));
+        }, 100);
       });
       
       // إخفاء شاشة البصمة
       fingerprintScreen.classList.add('hide');
       
-      // إظهار المحتوى
+      // إظهار المحتوى الرئيسي
       setTimeout(() => {
         mainContainer.classList.add('show');
       }, 100);
     }
     
+    // مستمع الحدث للبصمة
     fingerprintBtn.addEventListener('click', unlockAndPlay);
     fingerprintBtn.addEventListener('touchstart', (e) => {
       e.preventDefault();
       unlockAndPlay();
     });
     
-    // معالجة الصورة
-    const img = document.getElementById('profileImg');
-    if (img.complete && img.naturalWidth === 0) {
-      img.style.display = 'none';
+    // معالجة الصورة الشخصية
+    const profileImg = document.getElementById('profileImg');
+    if (profileImg.complete && profileImg.naturalWidth === 0) {
+      profileImg.style.display = 'none';
       document.getElementById('fallbackProfile').style.display = 'flex';
     }
   </script>
