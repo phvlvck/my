@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Ahmed | المعلومات الشخصية</title>
-  <!-- Font Awesome 6 (Free) -->
+  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts: Cairo + Poppins for English style -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -35,6 +35,407 @@
       backdrop-filter: blur(16px);
       border-radius: 48px;
       border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.01);
+    }
+
+    /* شريط الموسيقى المخفي تماماً - لا يظهر أي شيء */
+    .hidden-audio {
+      display: none;
+    }
+
+    /* header */
+    .hero {
+      background: linear-gradient(135deg, #1f2b3c, #0b0f1a);
+      padding: 2rem 2rem 2rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 215, 150, 0.2);
+      position: relative;
+    }
+    .hero::before {
+      content: "✨🐱✨";
+      font-size: 80px;
+      opacity: 0.12;
+      position: absolute;
+      bottom: -15px;
+      left: -5px;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: "⭐👑⭐";
+      font-size: 70px;
+      opacity: 0.1;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      pointer-events: none;
+    }
+    .welcome-badge {
+      font-size: 1.2rem;
+      background: rgba(255, 210, 100, 0.18);
+      display: inline-block;
+      padding: 0.4rem 1.4rem;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 210, 140, 0.5);
+    }
+    h1 {
+      font-size: 2.9rem;
+      font-weight: 800;
+      background: linear-gradient(120deg, #FFF9E6, #FFE6B3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 0.5rem 0;
+      font-family: 'Poppins', 'Cairo', sans-serif;
+    }
+    .title-arabic {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #b9c7d9;
+      margin-top: 8px;
+      border-top: 1px dashed rgba(255,255,200,0.3);
+      display: inline-block;
+      padding-top: 8px;
+    }
+    
+    /* صورة البروفايل الشخصية */
+    .profile-image {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 1rem auto;
+      border-radius: 50%;
+      border: 4px solid #ffdf99;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+      overflow: hidden;
+      background: linear-gradient(145deg, #2a3548, #141b26);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+    .profile-image:hover {
+      transform: scale(1.03);
+    }
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* اذا لم يتم العثور على الصورة تظهر الايموجي كبديل */
+    .profile-image .fallback-emoji {
+      font-size: 3.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* info */
+    .info-container {
+      padding: 1.8rem 2rem 2rem 2rem;
+    }
+    .info-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .info-item {
+      background: rgba(10, 14, 23, 0.6);
+      border-radius: 32px;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border: 1px solid rgba(255, 215, 150, 0.2);
+      transition: all 0.2s;
+      backdrop-filter: blur(5px);
+    }
+    .info-item:hover {
+      background: rgba(26, 32, 48, 0.85);
+      border-color: rgba(255, 200, 100, 0.7);
+    }
+    .icon-bg {
+      width: 52px;
+      height: 52px;
+      background: #1e2638;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      color: #ffcd7e;
+    }
+    .info-content {
+      flex: 1;
+    }
+    .info-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      color: #aab3cf;
+      margin-bottom: 4px;
+    }
+    .info-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .specialty-highlight {
+      background: linear-gradient(90deg, #2f3b54, #1b2335);
+      padding: 5px 14px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .telegram-badge {
+      background: #1e90ff20;
+      border-radius: 40px;
+      padding: 5px 14px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .btn-telegram, .btn-channel {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(95deg, #2a3750, #1b212f);
+      padding: 12px 26px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: 0.25s;
+      border: 1px solid rgba(255,215,130,0.5);
+      margin-top: 6px;
+      width: fit-content;
+    }
+    .btn-telegram:hover, .btn-channel:hover {
+      background: #2c3e66;
+      transform: translateY(-3px);
+      border-color: #ffcd7e;
+    }
+    .links-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .divider-custom {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ffcd7e80, #ffcd7e80, transparent);
+      margin: 1.2rem 0 1rem 0;
+    }
+    .footer-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 0.8rem;
+      font-size: 0.8rem;
+      color: #8e99b5;
+    }
+    .salawat {
+      font-family: 'Cairo', serif;
+      font-size: 0.9rem;
+      background: rgba(255,210,100,0.1);
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+    }
+    .emoji-stack {
+      display: inline-flex;
+      gap: 6px;
+      background: rgba(0,0,0,0.3);
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+    @media (max-width: 550px) {
+      body { padding: 1rem; }
+      .info-container { padding: 1.2rem; }
+      h1 { font-size: 2rem; }
+      .info-value { font-size: 1rem; }
+      .btn-telegram, .btn-channel { padding: 8px 18px; font-size: 0.85rem; }
+      .profile-image { width: 85px; height: 85px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- الأغنية مخفية تماماً - لا تظهر أي أسماء أو أزرار -->
+    <audio id="bgSong" autoplay loop style="display: none;">
+      <source src="song.mp3" type="audio/mpeg">
+      <source src="song.ogg" type="audio/ogg">
+    </audio>
+
+    <div class="hero">
+      <!-- الصورة الشخصية - ارفقها باسم IMG_20260325_184452_932.jpg -->
+      <div class="profile-image" id="profileImage">
+        <img id="userImage" src="IMG_20260325_184452_932.jpg" alt="صورة شخصية" onerror="this.style.display='none'; document.getElementById('fallbackEmoji').style.display='flex';">
+        <div id="fallbackEmoji" class="fallback-emoji" style="display: none;">👑🐱</div>
+      </div>
+      <div class="welcome-badge">
+        <i class="fas fa-gem"></i> 𝖶𝖤𝖫𝖢𝖮𝖬𝖤 𝖣𝖤𝖠𝖱 𝖳𝖮 𝖬𝖸 𝖨𝖭𝖥𝖮𝖱𝖬𝖠𝖳𝖨𝖮𝖭  🙂🤍
+      </div>
+      <h1>𝗔𝗛𝗠𝗘𝗗 👑</h1>
+      <div class="title-arabic">
+        <span class="emoji-stack">🐱✨⭐💻</span> 𝖬𝖸 𝖭𝖨𝖢𝖪𝖭𝖠𝖬𝖤 𝖨𝖲 : 🐱⭐
+      </div>
+    </div>
+
+    <div class="info-container">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="icon-bg"><i class="fas fa-crown"></i></div>
+          <div class="info-content">
+            <div class="info-label">𝖥𝖴𝖫𝖫 𝖭𝖠𝖬𝖤 / الاسم</div>
+            <div class="info-value">𝗔𝗛𝗠𝗘𝗗 👑 <span style="background:#111827; padding:3px 14px; border-radius:40px;">🐱⭐ 𝖭𝖨𝖢𝖪 : 🐱⭐</span></div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon-bg"><i class="fas fa-birthday-cake"></i></div>
+          <div class="info-content">
+            <div class="info-label">العمر / AGE 🎂</div>
+            <div class="info-value">16 ✨ <i class="fas fa-star" style="color:gold;"></i> &nbsp;| 🗓️ 𝟮𝟱/𝟭 🖤</div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon-bg"><i class="fas fa-globe-asia"></i></div>
+          <div class="info-content">
+            <div class="info-label">الدولة / COUNTRY 🌍</div>
+            <div class="info-value">𝖨𝖱𝖠𝖰 🇮🇶 🤍 &nbsp;| 𝙲𝙸𝚃𝚈 ➣ : 𝙆𝙄𝙍𝙆𝙐🖕</div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon-bg"><i class="fas fa-terminal"></i></div>
+          <div class="info-content">
+            <div class="info-label">التخصص / SPECIALTY ⚡</div>
+            <div class="info-value"><span class="specialty-highlight">𝖯𝖧𝖯 𝖫𝖠𝖭𝖦𝖴𝖠𝖦𝖤 𝖣𝖤𝖵𝖤𝖫𝖮𝖯𝖤𝖱 💻🔗🖥️🐘</span></div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon-bg"><i class="fab fa-telegram-plane"></i></div>
+          <div class="info-content">
+            <div class="info-label">في تيليجرام منذ / 𝖨𝖭 𝖳𝖤𝖫𝖤𝖦𝖱𝖠𝖬</div>
+            <div class="info-value">𝟐𝟎𝟏𝟗 🗓️ <span class="telegram-badge"><i class="fab fa-telegram"></i> 𝖠𝖢𝖢𝖮𝖴𝖭𝖳 : @TO_LS</span></div>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <div class="icon-bg"><i class="fas fa-calendar-check"></i></div>
+          <div class="info-content">
+            <div class="info-label">تاريخ الميلاد / BIRTHDAY 🎁</div>
+            <div class="info-value">𝟮𝟱/𝟭🖤 &nbsp; ✨ يناير 01 (16 سنة حقيقية) ✨</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider-custom"></div>
+
+      <div class="links-section">
+        <a href="https://t.me/TO_LS" target="_blank" class="btn-telegram">
+          <i class="fab fa-telegram fa-lg"></i> 𝖠𝖢𝖢𝖮𝖴𝖭𝖳 𝖳𝖤𝖫𝖤𝖦𝖱𝖠𝖬 : 𝖢𝗅𝗂𝖼𝗄 𝖧𝖾𝗋𝖾 🎁
+        </a>
+        <a id="channelLink" href="https://t.me/lib_Devil" target="_blank" class="btn-channel">
+          <i class="fas fa-tower-broadcast"></i> 𝖢𝖧𝖠𝖭𝖭𝖤𝖫¹ : 𝖢𝗅𝗂𝖼𝗄 𝖧𝖾𝗋𝖊 🌐 قناتي
+        </a>
+      </div>
+
+      <div style="margin: 1rem 0 0.5rem 0; display: flex; flex-wrap: wrap; gap: 10px;">
+        <span style="background:#11161f; padding:6px 14px; border-radius:60px;"><i class="fab fa-telegram"></i> @s37_1 🚀</span>
+        <span style="background:#11161f; padding:6px 14px; border-radius:60px;"><i class="fas fa-star"></i> @r_9he ⭐</span>
+        <span style="background:#11161f; padding:6px 14px; border-radius:60px;"><i class="fas fa-crown"></i> @i_j_4 👑</span>
+        <span style="background:#11161f; padding:6px 14px; border-radius:60px;"><i class="fas fa-code"></i> @lib_Devil 💎</span>
+      </div>
+
+      <div style="margin-top: 1.5rem; background: rgba(0,0,0,0.45); border-radius: 34px; padding: 1rem 1.5rem; border-right: 5px solid #ffcd7e;">
+        <p style="font-style: italic; font-weight: 500;">📌 "أريد الجلوس مع مُختَلَّ غَفْلِياً، أتحدث بكل ما يداخِلُ فيستوم بالضحك..."</p>
+        <p style="font-size: 0.75rem; margin-top: 8px;">🎵 IRAQI MUSIC - قاسم السلطان ام ثوب احمر 🎵</p>
+      </div>
+
+      <div class="footer-info">
+        <div class="salawat">
+          <i class="fas fa-praying-hands"></i> • اللهم صلي على محمد وآل محمد 🤍.
+        </div>
+        <div>
+          <i class="fas fa-rocket"></i> اصنع لنفسك تاريخاً واجعل غيرك يبتعلم. ❤️
+        </div>
+      </div>
+      
+      <div style="margin-top: 1rem; font-size: 0.7rem; color: #b5c1e0; border-top: 1px solid #2a2f40; padding-top: 0.8rem; display: flex; justify-content: space-between; flex-wrap: wrap;">
+        <span><i class="fas fa-mobile-alt"></i> +964 770 943 1068 📞</span>
+        <span><i class="fab fa-telegram"></i> أخواني @lib_Devil 🐱✨</span>
+        <span><i class="fas fa-crown"></i> 𝖳𝖤𝖫𝖤𝖦𝖱𝖠𝖬 𝖯𝖱𝖮</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // تشغيل الأغنية التلقائي عند فتح الموقع
+    const audio = document.getElementById('bgSong');
+    
+    // ضبط مستوى الصوت
+    audio.volume = 0.5;
+    
+    // محاولة تشغيل الأغنية مباشرة
+    const playAudio = async () => {
+      try {
+        await audio.play();
+        console.log("✅ الأغنية تعمل تلقائياً");
+      } catch(e) {
+        console.log("التشغيل التلقائي مقيد من المتصفح");
+        // محاولة ثانية بأي تفاعل بسيط من المستخدم (اختياري)
+        document.body.addEventListener('click', function once() {
+          audio.play();
+          document.body.removeEventListener('click', once);
+        }, { once: true });
+      }
+    };
+    
+    playAudio();
+    
+    // التأكد من أن الصورة تظهر بشكل صحيح
+    const userImg = document.getElementById('userImage');
+    const fallback = document.getElementById('fallbackEmoji');
+    
+    if (userImg.complete) {
+      if (userImg.naturalWidth === 0) {
+        userImg.style.display = 'none';
+        fallback.style.display = 'flex';
+      }
+    } else {
+      userImg.onerror = function() {
+        userImg.style.display = 'none';
+        fallback.style.display = 'flex';
+      };
+    }
+    
+    console.log("✅ الموقع جاهز! الصورة: IMG_20260325_184452_932.jpg | الأغنية: song.mp3");
+  </script>
+</body>
+</html>      border: 1px solid rgba(255, 255, 255, 0.12);
       box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
       overflow: hidden;
       transition: transform 0.3s ease;
