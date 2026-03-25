@@ -44,6 +44,82 @@
       z-index: 1;
     }
 
+    /* ========== شاشة البصمة ========== */
+    .fingerprint-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #e8edff 0%, #f0f4ff 100%);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 1;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+    }
+
+    .fingerprint-screen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .fingerprint-card {
+      text-align: center;
+      transform: scale(1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .fingerprint-card:hover {
+      transform: scale(1.05);
+    }
+
+    .fingerprint-icon {
+      font-size: 8rem;
+      background: linear-gradient(135deg, #646cff, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 0 20px rgba(100, 108, 255, 0.5));
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(100, 108, 255, 0.3));
+        transform: scale(1);
+      }
+      50% {
+        filter: drop-shadow(0 0 30px rgba(100, 108, 255, 0.7));
+        transform: scale(1.05);
+      }
+    }
+
+    .fingerprint-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #2d2f6e, #646cff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 2px;
+      margin-top: 1rem;
+    }
+
+    .fingerprint-sub {
+      font-size: 0.9rem;
+      color: #646cff;
+      margin-top: 0.5rem;
+      opacity: 0.8;
+    }
+
+    /* Container الموقع التعريفي - يبدأ مخفي */
     .container {
       position: relative;
       z-index: 2;
@@ -52,6 +128,16 @@
       align-items: center;
       min-height: 100vh;
       padding: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .container.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
     .card {
@@ -344,6 +430,8 @@
       .info-value { font-size: 0.95rem; }
       .profile { width: 100px; height: 100px; }
       .btn { padding: 0.7rem 1rem; font-size: 0.85rem; }
+      .fingerprint-icon { font-size: 5rem; }
+      .fingerprint-text { font-size: 1.2rem; }
     }
   </style>
 </head>
@@ -351,7 +439,19 @@
   <canvas id="codeCanvas"></canvas>
   <div class="overlay-light"></div>
 
-  <div class="container">
+  <!-- شاشة البصمة -->
+  <div id="fingerprintScreen" class="fingerprint-screen">
+    <div class="fingerprint-card" id="fingerprintBtn">
+      <div class="fingerprint-icon">
+        <i class="fas fa-fingerprint"></i>
+      </div>
+      <div class="fingerprint-text">TOUCH TO ENTER</div>
+      <div class="fingerprint-sub">اضغط للدخول</div>
+    </div>
+  </div>
+
+  <!-- الموقع التعريفي (يبدأ مخفي) -->
+  <div id="mainContainer" class="container">
     <div class="card">
       <div class="header">
         <div class="profile">
@@ -423,23 +523,23 @@
             <span>أخواني / MY FRIENDS</span>
           </div>
           <div class="friends-list">
-            <a href="https://t.me/s37_1" target="_blank" class="friend"><i class="fab fa-telegram"></i> @s37_1 </a>
-            <a href="https://t.me/r_9he" target="_blank" class="friend"><i class="fab fa-telegram"></i> @r_9he </a>
-            <a href="https://t.me/i_j_4" target="_blank" class="friend"><i class="fab fa-telegram"></i> @i_j_4 </a>
-            <a href="https://t.me/lib_Devil" target="_blank" class="friend"><i class="fab fa-telegram"></i> @lib_Devil </a>
+            <a href="https://t.me/s37_1" target="_blank" class="friend"><i class="fab fa-telegram"></i> @s37_1</a>
+            <a href="https://t.me/r_9he" target="_blank" class="friend"><i class="fab fa-telegram"></i> @r_9he</a>
+            <a href="https://t.me/i_j_4" target="_blank" class="friend"><i class="fab fa-telegram"></i> @i_j_4</a>
+            <a href="https://t.me/lib_Devil" target="_blank" class="friend"><i class="fab fa-telegram"></i> @lib_Devil</a>
           </div>
         </div>
 
         <div class="footer">
           <span><i class="fas fa-mobile-alt"></i> +964 770 *******</span>
           <span><i class="fas fa-praying-hands"></i> اللهم صلي على محمد وآل محمد 🤍</span>
-          <span><i class="fas fa-rocket"></i>اصنع لنفسك تاريخآ واجعل غيرك يتعلم</span>
+          <span><i class="fas fa-rocket"></i> اصنع لنفسك تاريخاً واجعل غيرك يتعلم</span>
         </div>
       </div>
     </div>
   </div>
 
-  <audio id="bgSong" autoplay loop style="display: none;">
+  <audio id="bgSong" style="display: none;">
     <source src="song.mp3" type="audio/mpeg">
   </audio>
 
@@ -537,15 +637,37 @@
     initCanvas();
     animate();
     
-    // تشغيل الموسيقى تلقائياً
+    // ========== البصمة وتشغيل الموسيقى وظهور المحتوى ==========
+    const fingerprintScreen = document.getElementById('fingerprintScreen');
+    const mainContainer = document.getElementById('mainContainer');
+    const fingerprintBtn = document.getElementById('fingerprintBtn');
     const bgAudio = document.getElementById('bgSong');
+    let musicStarted = false;
+    
     bgAudio.volume = 0.35;
-    bgAudio.play().catch(e => {
-      console.log('Auto-play prevented, waiting for user interaction');
-      document.body.addEventListener('click', function playOnce() {
-        bgAudio.play();
-        document.body.removeEventListener('click', playOnce);
-      }, { once: true });
+    
+    function unlockAndPlay() {
+      if (musicStarted) return;
+      musicStarted = true;
+      
+      // تشغيل الموسيقى
+      bgAudio.play().catch(e => {
+        console.log('Audio play error:', e);
+      });
+      
+      // إخفاء شاشة البصمة
+      fingerprintScreen.classList.add('hide');
+      
+      // إظهار المحتوى
+      setTimeout(() => {
+        mainContainer.classList.add('show');
+      }, 100);
+    }
+    
+    fingerprintBtn.addEventListener('click', unlockAndPlay);
+    fingerprintBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      unlockAndPlay();
     });
     
     // معالجة الصورة
