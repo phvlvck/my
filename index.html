@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Ahmed | PHP & Python Developer</title>
+  <title>Ahmed | Full Stack Developer</title>
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Google Fonts -->
@@ -18,83 +18,35 @@
     body {
       font-family: 'Cairo', 'Poppins', sans-serif;
       min-height: 100vh;
-      background: #0a0c15;
+      background: linear-gradient(135deg, #e0e7ff 0%, #f0f4ff 50%, #e6edff 100%);
       position: relative;
       overflow-x: hidden;
     }
 
-    /* خلفية متحركة بأكواد PHP و Python */
-    .code-bg {
+    /* Canvas للخلفية المتحركة - أكواد واضحة بألوان جميلة */
+    #codeCanvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
-      overflow: hidden;
-      background: linear-gradient(135deg, #0a0c15 0%, #0f121c 50%, #0b0e17 100%);
+      background: linear-gradient(135deg, #e8edff 0%, #f5f7ff 50%, #eef2ff 100%);
     }
 
-    .code-line {
-      position: absolute;
-      white-space: nowrap;
-      font-family: 'Fira Code', monospace;
-      font-size: 14px;
-      font-weight: 500;
-      opacity: 0;
-      animation: floatCode 20s linear infinite;
-      color: rgba(100, 200, 255, 0.3);
-      pointer-events: none;
-    }
-
-    @keyframes floatCode {
-      0% {
-        transform: translateY(100vh) translateX(-20px);
-        opacity: 0;
-      }
-      10% {
-        opacity: 0.4;
-      }
-      80% {
-        opacity: 0.4;
-      }
-      100% {
-        transform: translateY(-100px) translateX(20px);
-        opacity: 0;
-      }
-    }
-
-    /* كود PHP */
-    .code-line.php {
-      color: rgba(120, 180, 255, 0.4);
-      text-shadow: 0 0 5px rgba(100, 150, 255, 0.3);
-    }
-
-    /* كود Python */
-    .code-line.python {
-      color: rgba(255, 200, 100, 0.4);
-      text-shadow: 0 0 5px rgba(255, 180, 50, 0.3);
-    }
-
-    /* كود HTML/JS */
-    .code-line.html {
-      color: rgba(100, 255, 150, 0.35);
-      text-shadow: 0 0 5px rgba(100, 255, 150, 0.2);
-    }
-
-    /* overlay لتغميق الخلفية قليلاً */
-    .overlay {
+    /* Overlay خفيف جداً */
+    .overlay-light {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(10, 12, 21, 0.75);
-      backdrop-filter: blur(3px);
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(2px);
       z-index: 1;
     }
 
-    /* container المحتوى */
+    /* Container */
     .container {
       position: relative;
       z-index: 2;
@@ -105,39 +57,37 @@
       padding: 2rem;
     }
 
-    /* البطاقة الرئيسية */
+    /* البطاقة الرئيسية - أبيض نظيف مع ظل أنيق */
     .card {
-      max-width: 880px;
+      max-width: 920px;
       width: 100%;
-      background: rgba(18, 22, 40, 0.65);
-      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
       border-radius: 2rem;
-      border: 1px solid rgba(100, 150, 255, 0.25);
-      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 20px rgba(100, 150, 255, 0.1);
+      border: none;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(100, 108, 255, 0.1);
       overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 30px 55px rgba(0, 0, 0, 0.6), 0 0 25px rgba(100, 150, 255, 0.2);
-      border-color: rgba(100, 150, 255, 0.4);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(100, 108, 255, 0.2);
     }
 
-    /* الرأس */
+    /* الهيدر */
     .header {
-      background: linear-gradient(135deg, rgba(25, 35, 55, 0.9), rgba(15, 20, 35, 0.95));
+      background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
       padding: 2rem;
       text-align: center;
-      border-bottom: 1px solid rgba(100, 150, 255, 0.3);
-      position: relative;
+      border-bottom: 2px solid rgba(100, 108, 255, 0.15);
     }
 
     /* الصورة الشخصية */
-    .profile-wrapper {
+    .profile {
       position: relative;
-      width: 130px;
-      height: 130px;
+      width: 140px;
+      height: 140px;
       margin: 0 auto 1.2rem;
     }
 
@@ -146,118 +96,125 @@
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid #4c9aff;
-      box-shadow: 0 8px 25px rgba(76, 154, 255, 0.3);
+      border: 4px solid #646cff;
+      box-shadow: 0 8px 25px rgba(100, 108, 255, 0.25);
       transition: all 0.3s;
-      background: #1e2a3a;
+      background: linear-gradient(135deg, #eef2ff, #e0e7ff);
     }
 
     .profile-img.fallback {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #2a3f5e, #1a2a3f);
       font-size: 3.5rem;
+      background: linear-gradient(135deg, #646cff20, #a855f720);
     }
 
-    .profile-wrapper::after {
+    .profile::after {
       content: '';
       position: absolute;
-      top: -5px;
-      left: -5px;
-      right: -5px;
-      bottom: -5px;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
       border-radius: 50%;
-      background: linear-gradient(45deg, #4c9aff, #a855f7, #4c9aff);
-      opacity: 0.6;
+      background: linear-gradient(45deg, #646cff, #a855f7, #646cff);
+      opacity: 0.5;
       z-index: -1;
-      animation: borderGlow 3s ease infinite;
+      animation: rotateGlow 4s linear infinite;
     }
 
-    @keyframes borderGlow {
-      0%, 100% { opacity: 0.4; transform: scale(1); }
-      50% { opacity: 0.8; transform: scale(1.02); }
+    @keyframes rotateGlow {
+      0% { transform: rotate(0deg); opacity: 0.4; }
+      50% { opacity: 0.7; }
+      100% { transform: rotate(360deg); opacity: 0.4; }
     }
 
-    .welcome-badge {
+    .welcome {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: rgba(76, 154, 255, 0.15);
-      padding: 0.5rem 1.5rem;
+      gap: 12px;
+      background: linear-gradient(135deg, #646cff15, #a855f715);
+      padding: 0.6rem 1.8rem;
       border-radius: 60px;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      border: 1px solid rgba(76, 154, 255, 0.4);
+      color: #4a4f8c;
+      border: 1px solid rgba(100, 108, 255, 0.3);
       margin-bottom: 1rem;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       font-weight: 800;
-      background: linear-gradient(120deg, #fff, #9acdff);
+      background: linear-gradient(120deg, #2d2f6e, #646cff, #a855f7);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       letter-spacing: 1px;
     }
 
-    .badge-stack {
+    /* لغة tags */
+    .lang-stack {
       display: flex;
       justify-content: center;
-      gap: 12px;
       flex-wrap: wrap;
-      margin-top: 1rem;
+      gap: 12px;
+      margin-top: 1.2rem;
     }
 
-    .tech-badge {
-      background: rgba(76, 154, 255, 0.2);
-      padding: 0.3rem 1rem;
+    .lang-tag {
+      background: linear-gradient(135deg, #f0f2ff, #e8ecff);
+      padding: 0.4rem 1.2rem;
       border-radius: 40px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-family: 'Fira Code', monospace;
-      border: 1px solid rgba(76, 154, 255, 0.4);
+      font-weight: 600;
+      color: #4a4f8c;
+      border: 1px solid rgba(100, 108, 255, 0.25);
+      transition: all 0.2s;
     }
 
-    /* محتوى المعلومات */
+    .lang-tag:hover {
+      background: linear-gradient(135deg, #e0e4ff, #d4dbff);
+      transform: scale(1.02);
+      border-color: #646cff;
+    }
+
+    /* المحتوى */
     .content {
       padding: 2rem;
     }
 
-    .info-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .info-card {
-      background: rgba(10, 14, 25, 0.6);
-      border-radius: 1.2rem;
-      padding: 1rem 1.5rem;
+    .info-row {
       display: flex;
       align-items: center;
       gap: 1rem;
-      flex-wrap: wrap;
-      border: 1px solid rgba(76, 154, 255, 0.2);
+      background: #f8faff;
+      border-radius: 1.2rem;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(100, 108, 255, 0.15);
       transition: all 0.2s;
     }
 
-    .info-card:hover {
-      background: rgba(20, 28, 45, 0.8);
-      border-color: rgba(76, 154, 255, 0.5);
+    .info-row:hover {
+      background: #ffffff;
+      border-color: rgba(100, 108, 255, 0.4);
       transform: translateX(5px);
+      box-shadow: 0 4px 12px rgba(100, 108, 255, 0.08);
     }
 
     .info-icon {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #2a3a55, #1a2538);
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, #eef2ff, #e6ebff);
       border-radius: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      color: #4c9aff;
+      font-size: 1.6rem;
+      color: #646cff;
     }
 
     .info-text {
@@ -267,106 +224,131 @@
     .info-label {
       font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #8a99c4;
+      letter-spacing: 2px;
+      color: #8b8fb0;
       font-weight: 600;
     }
 
     .info-value {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 700;
+      color: #1e1f2e;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       margin-top: 4px;
     }
 
-    .lang-tag {
-      background: rgba(76, 154, 255, 0.25);
-      padding: 0.2rem 0.8rem;
+    .badge {
+      background: linear-gradient(135deg, #646cff15, #a855f715);
+      padding: 0.25rem 0.9rem;
       border-radius: 50px;
       font-size: 0.8rem;
-      font-family: 'Fira Code', monospace;
+      font-weight: 600;
+      color: #646cff;
     }
 
-    /* روابط السوشيال ميديا */
-    .links-grid {
+    /* روابط */
+    .links {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
       margin: 1.5rem 0;
     }
 
-    .social-btn {
+    .btn {
       flex: 1;
-      min-width: 180px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      background: linear-gradient(95deg, #1e2a3f, #141c2c);
+      gap: 12px;
+      background: linear-gradient(95deg, #ffffff, #fafcff);
       padding: 0.9rem 1.5rem;
       border-radius: 60px;
       font-weight: 700;
-      transition: all 0.25s;
-      border: 1px solid rgba(76, 154, 255, 0.4);
       text-decoration: none;
+      color: #4a4f8c;
+      border: 1px solid rgba(100, 108, 255, 0.35);
+      transition: all 0.25s;
+    }
+
+    .btn:hover {
+      background: linear-gradient(95deg, #646cff, #7c7eff);
+      color: white;
+      transform: translateY(-2px);
+      border-color: transparent;
+      box-shadow: 0 8px 20px rgba(100, 108, 255, 0.3);
+    }
+
+    .btn:hover i {
       color: white;
     }
 
-    .social-btn:hover {
-      background: #2a3f60;
-      transform: translateY(-2px);
-      border-color: #4c9aff;
-      box-shadow: 0 8px 20px rgba(76, 154, 255, 0.2);
-    }
-
-    /* أصدقاء */
-    .friends-section {
-      background: rgba(10, 14, 25, 0.5);
+    /* الأصدقاء */
+    .friends {
+      background: #f8faff;
       border-radius: 1.2rem;
       padding: 1rem 1.5rem;
       margin: 1rem 0;
-      border: 1px solid rgba(76, 154, 255, 0.2);
+      border: 1px solid rgba(100, 108, 255, 0.15);
+    }
+
+    .friends-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #2d2f6e;
     }
 
     .friends-list {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 12px;
     }
 
-    .friend-link {
+    .friend {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(76, 154, 255, 0.1);
+      background: white;
       padding: 0.5rem 1.2rem;
       border-radius: 50px;
       text-decoration: none;
-      color: #b8c7ff;
+      color: #4a4f8c;
       font-size: 0.9rem;
+      font-weight: 500;
       transition: all 0.2s;
-      border: 1px solid rgba(76, 154, 255, 0.3);
+      border: 1px solid rgba(100, 108, 255, 0.25);
     }
 
-    .friend-link:hover {
-      background: rgba(76, 154, 255, 0.25);
+    .friend:hover {
+      background: #646cff;
       color: white;
       transform: scale(1.02);
+      border-color: transparent;
+    }
+
+    .friend:hover i {
+      color: white;
     }
 
     /* اقتباس */
-    .quote {
-      background: linear-gradient(95deg, rgba(76, 154, 255, 0.1), rgba(100, 80, 200, 0.1));
+    .quote-box {
+      background: linear-gradient(135deg, #f0f2ff, #faf5ff);
       border-radius: 1.2rem;
-      padding: 1.2rem;
+      padding: 1.2rem 1.5rem;
       margin: 1rem 0;
-      border-right: 4px solid #4c9aff;
+      border-right: 4px solid #646cff;
     }
 
+    .quote-box p {
+      color: #2d2f6e;
+    }
+
+    /* footer */
     .footer {
       display: flex;
       justify-content: space-between;
@@ -374,9 +356,9 @@
       gap: 10px;
       padding-top: 1rem;
       margin-top: 1rem;
-      border-top: 1px solid rgba(76, 154, 255, 0.2);
+      border-top: 1px solid rgba(100, 108, 255, 0.15);
       font-size: 0.75rem;
-      color: #7a85b0;
+      color: #8b8fb0;
     }
 
     @media (max-width: 600px) {
@@ -384,205 +366,240 @@
       .content { padding: 1.2rem; }
       h1 { font-size: 1.8rem; }
       .info-value { font-size: 0.95rem; }
-      .profile-wrapper { width: 100px; height: 100px; }
+      .profile { width: 100px; height: 100px; }
+      .btn { padding: 0.7rem 1rem; font-size: 0.85rem; }
     }
   </style>
 </head>
 <body>
-  <div class="code-bg" id="codeBg"></div>
-  <div class="overlay"></div>
+  <canvas id="codeCanvas"></canvas>
+  <div class="overlay-light"></div>
 
   <div class="container">
     <div class="card">
       <div class="header">
-        <div class="profile-wrapper">
+        <div class="profile">
           <img id="profileImg" class="profile-img" src="IMG_20260325_184452_932.jpg" alt="Ahmed" onerror="this.onerror=null; this.style.display='none'; document.getElementById('fallbackProfile').style.display='flex';">
           <div id="fallbackProfile" class="profile-img fallback" style="display: none;">
             <i class="fas fa-code"></i>
           </div>
         </div>
-        <div class="welcome-badge">
-          <i class="fas fa-terminal"></i>
+        <div class="welcome">
+          <i class="fas fa-code"></i>
           <span>WELCOME DEAR TO MY INFORMATION</span>
           <i class="fas fa-heart" style="color: #ff6b9d;"></i>
         </div>
         <h1>AHMED 👑</h1>
-        <div class="badge-stack">
-          <span class="tech-badge"><i class="fab fa-php"></i> PHP</span>
-          <span class="tech-badge"><i class="fab fa-python"></i> Python</span>
-          <span class="tech-badge"><i class="fab fa-js"></i> JavaScript</span>
-          <span class="tech-badge"><i class="fas fa-database"></i> SQL</span>
+        <div class="lang-stack">
+          <span class="lang-tag"><i class="fab fa-php"></i> PHP</span>
+          <span class="lang-tag"><i class="fab fa-python"></i> Python</span>
+          <span class="lang-tag"><i class="fab fa-js"></i> JavaScript</span>
+          <span class="lang-tag"><i class="fas fa-database"></i> SQL</span>
+          <span class="lang-tag"><i class="fab fa-html5"></i> HTML/CSS</span>
         </div>
       </div>
 
       <div class="content">
-        <div class="info-grid">
-          <div class="info-card">
-            <div class="info-icon"><i class="fas fa-user-astronaut"></i></div>
-            <div class="info-text">
-              <div class="info-label">FULL NAME / الاسم الكامل</div>
-              <div class="info-value">AHMED <span class="lang-tag"><i class="fas fa-star"></i> NICK: ⭐⭐⭐⭐</span></div>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon"><i class="fas fa-cake-candles"></i></div>
-            <div class="info-text">
-              <div class="info-label">AGE / العمر</div>
-              <div class="info-value">16 YEARS ✨ <span style="color:#ffcc77;">★</span> | BIRTHDAY: 25/1 🖤</div>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
-            <div class="info-text">
-              <div class="info-label">COUNTRY / الدولة</div>
-              <div class="info-value">IRAQ 🇮🇿 <span style="margin:0 8px">|</span> CITY: KIRKUK <i class="fas fa-city"></i></div>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon"><i class="fas fa-laptop-code"></i></div>
-            <div class="info-text">
-              <div class="info-label">SPECIALTY / التخصص</div>
-              <div class="info-value">
-                <span class="lang-tag"><i class="fab fa-php"></i> PHP Developer</span>
-                <span class="lang-tag"><i class="fab fa-python"></i> Python Developer</span>
-                <span>💻🔗🖥️</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon"><i class="fab fa-telegram"></i></div>
-            <div class="info-text">
-              <div class="info-label">TELEGRAM / تيليجرام</div>
-              <div class="info-value">MEMBER SINCE: 2019 🗓️ | USERNAME: @TO_LS</div>
-            </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="fas fa-user"></i></div>
+          <div class="info-text">
+            <div class="info-label">FULL NAME / الاسم الكامل</div>
+            <div class="info-value">AHMED <span class="badge"><i class="fas fa-star"></i> NICK: ★★★★★</span></div>
           </div>
         </div>
 
-        <!-- روابط تيليجرام حقيقية -->
-        <div class="links-grid">
-          <a href="https://t.me/TO_LS" target="_blank" class="social-btn">
+        <div class="info-row">
+          <div class="info-icon"><i class="fas fa-cake"></i></div>
+          <div class="info-text">
+            <div class="info-label">AGE / العمر</div>
+            <div class="info-value">16 YEARS ⭐★ <span class="badge"><i class="fas fa-gift"></i> BIRTHDAY: 25/1 ❤️</span></div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon"><i class="fas fa-map-marker"></i></div>
+          <div class="info-text">
+            <div class="info-label">COUNTRY / الدولة</div>
+            <div class="info-value">IRAQ 🇮🇶 <span style="margin:0 8px">|</span> CITY: KIRKUK <i class="fas fa-city"></i></div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon"><i class="fab fa-telegram"></i></div>
+          <div class="info-text">
+            <div class="info-label">TELEGRAM / تيليجرام</div>
+            <div class="info-value">MEMBER SINCE: 2019 🗓️ | @TO_LS</div>
+          </div>
+        </div>
+
+        <!-- روابط -->
+        <div class="links">
+          <a href="https://t.me/TO_LS" target="_blank" class="btn">
             <i class="fab fa-telegram fa-lg"></i> @TO_LS
-            <i class="fas fa-external-link-alt fa-xs"></i>
           </a>
-          <a href="https://t.me/lib_Devil" target="_blank" class="social-btn">
+          <a href="https://t.me/lib_Devil" target="_blank" class="btn">
             <i class="fas fa-tower-broadcast"></i> القناة الرسمية
-            <i class="fas fa-external-link-alt fa-xs"></i>
           </a>
         </div>
 
-        <!-- أصدقاء تيليجرام بروابط حقيقية -->
-        <div class="friends-section">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="fas fa-users" style="color: #4c9aff;"></i>
-            <span style="font-weight: 600;">أخواني / FRIENDS</span>
+        <!-- الأصدقاء -->
+        <div class="friends">
+          <div class="friends-title">
+            <i class="fas fa-users" style="color: #646cff;"></i>
+            <span>أخواني / MY FRIENDS</span>
           </div>
           <div class="friends-list">
-            <a href="https://t.me/s37_1" target="_blank" class="friend-link"><i class="fab fa-telegram"></i> @s37_1 🚀</a>
-            <a href="https://t.me/r_9he" target="_blank" class="friend-link"><i class="fab fa-telegram"></i> @r_9he ⭐</a>
-            <a href="https://t.me/i_j_4" target="_blank" class="friend-link"><i class="fab fa-telegram"></i> @i_j_4 👑</a>
-            <a href="https://t.me/lib_Devil" target="_blank" class="friend-link"><i class="fab fa-telegram"></i> @lib_Devil 💎</a>
+            <a href="https://t.me/s37_1" target="_blank" class="friend"><i class="fab fa-telegram"></i> @s37_1 🚀</a>
+            <a href="https://t.me/r_9he" target="_blank" class="friend"><i class="fab fa-telegram"></i> @r_9he ⭐</a>
+            <a href="https://t.me/i_j_4" target="_blank" class="friend"><i class="fab fa-telegram"></i> @i_j_4 👑</a>
+            <a href="https://t.me/lib_Devil" target="_blank" class="friend"><i class="fab fa-telegram"></i> @lib_Devil 💎</a>
           </div>
         </div>
 
-        <!-- اقتباس مميز -->
-        <div class="quote">
-          <p style="font-style: italic;">📌 "أريد الجلوس مع مُختَلَّ غَفْلِياً، أتحدث بكل ما يداخِلُ فيستوم بالضحك..."</p>
+        <!-- اقتباس -->
+        <div class="quote-box">
+          <p style="font-style: italic; font-size: 1rem;">📌 "أريد الجلوس مع مُختَلَّ غَفْلِياً، أتحدث بكل ما يداخِلُ فيستوم بالضحك..."</p>
           <p style="font-size: 0.75rem; margin-top: 8px; opacity: 0.7;">🎵 IRAQI MUSIC - قاسم السلطان | ام ثوب احمر 🎵</p>
         </div>
 
         <!-- footer -->
         <div class="footer">
-          <div>
-            <i class="fas fa-mobile-alt"></i> +964 770 943 1068
-          </div>
-          <div>
-            <i class="fas fa-praying-hands"></i> اللهم صلي على محمد وآل محمد 🤍
-          </div>
-          <div>
-            <i class="fas fa-rocket"></i> اصنع لنفسك تاريخاً
-          </div>
+          <span><i class="fas fa-mobile-alt"></i> +964 770 943 1068</span>
+          <span><i class="fas fa-praying-hands"></i> اللهم صلي على محمد وآل محمد 🤍</span>
+          <span><i class="fas fa-rocket"></i> اصنع لنفسك تاريخاً</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Audio مخفي -->
   <audio id="bgSong" autoplay loop style="display: none;">
     <source src="song.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    // أكواد برمجية للخلفية (PHP, Python, HTML, JS)
-    const codeSnippets = [
-      // PHP
-      "<?php echo 'Hello World!'; ?>",
-      "$db = new PDO('mysql:host=localhost;dbname=test', $user, $pass);",
-      "function calculate($x, $y) { return $x + $y; }",
-      "foreach($users as $user) { echo $user->name; }",
-      "class Developer { public $language = 'PHP'; }",
-      // Python
-      "def hello(): print('Welcome Developer')",
-      "import os; os.system('clear')",
-      "class Ahmed: def __init__(self): self.skill = 'Python'",
-      "for i in range(10): print(f'Code {i}')",
-      "data = [x**2 for x in range(100)]",
-      // HTML/JS/CSS
-      "<div class='developer'>Ahmed</div>",
-      "const user = { name: 'Ahmed', age: 16 };",
-      "document.querySelector('.card').style.backdropFilter = 'blur(10px)';",
-      "fetch('/api/data').then(res => res.json());",
-      "console.log('PHP & Python Developer 🚀');",
-      "<?php namespace App\\Controllers; ?>",
-      "pip install flask django fastapi",
-      "python manage.py runserver",
-      "<?= 'Welcome to my portfolio' ?>"
+    // ========== خلفية متحركة بأكواد برمجية واضحة بألوان جميلة ==========
+    const canvas = document.getElementById('codeCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    let width, height;
+    let particles = [];
+    
+    // أكواد برمجية من لغات مختلفة
+    const codeStrings = [
+      "<?php echo 'Hello Ahmed'; ?>",
+      "$conn = new mysqli($host, $user, $pass);",
+      "function query() { return $this->db->query(); }",
+      "foreach($data as $item) { echo $item; }",
+      "class Developer { public $lang = 'PHP'; }",
+      "def main(): print('Welcome Developer')",
+      "import numpy as np",
+      "class Ahmed: def __init__(self): pass",
+      "for i in range(100): print(f'Code {i}')",
+      "pip install flask django",
+      "const app = express();",
+      "fetch('/api/data').then(res => res.json())",
+      "document.querySelector('.card').style.transform = 'scale(1.01)';",
+      "async function getData() { return await axios.get('/api'); }",
+      "console.log('PHP & Python Dev 🚀');",
+      "backdrop-filter: blur(16px);",
+      "SELECT * FROM users WHERE id = 1",
+      "INSERT INTO developers (name, lang) VALUES ('Ahmed', 'PHP');",
+      "std::cout << 'Hello World' << std::endl;",
+      "System.out.println('Welcome Ahmed');",
+      "fn main() { println!(\"Hello!\"); }"
     ];
-
-    function createCodeLine() {
-      const snippet = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
-      const types = ['php', 'python', 'html'];
-      let typeClass = 'php';
-      if (snippet.includes('def ') || snippet.includes('import ') || snippet.includes('pip') || snippet.includes('python')) {
-        typeClass = 'python';
-      } else if (snippet.includes('<') || snippet.includes('const') || snippet.includes('document') || snippet.includes('console')) {
-        typeClass = 'html';
+    
+    class CodeParticle {
+      constructor(x, y, text, speed) {
+        this.x = x;
+        this.y = y;
+        this.text = text;
+        this.speed = speed;
+        this.opacity = 0.35 + Math.random() * 0.45;
+        this.fontSize = 13 + Math.random() * 12;
       }
       
-      const line = document.createElement('div');
-      line.className = `code-line ${typeClass}`;
-      line.textContent = snippet;
+      update() {
+        this.y += this.speed;
+        if (this.y > height + 100) {
+          this.y = -50;
+          this.x = Math.random() * width;
+          this.text = codeStrings[Math.floor(Math.random() * codeStrings.length)];
+          this.speed = 0.4 + Math.random() * 1.2;
+          this.opacity = 0.35 + Math.random() * 0.45;
+        }
+      }
       
-      const left = Math.random() * 100;
-      const duration = 15 + Math.random() * 20;
-      const delay = Math.random() * 15;
-      
-      line.style.left = `${left}%`;
-      line.style.animationDuration = `${duration}s`;
-      line.style.animationDelay = `${delay}s`;
-      line.style.fontSize = `${12 + Math.random() * 8}px`;
-      
-      document.getElementById('codeBg').appendChild(line);
-      
-      setTimeout(() => {
-        if (line && line.remove) line.remove();
-      }, duration * 1000);
+      draw() {
+        // ألوان جميلة ومتناسقة للأكواد
+        let color;
+        if (this.text.includes('<?php') || this.text.includes('$') || this.text.includes('foreach')) {
+          color = `rgba(100, 108, 255, ${this.opacity})`; // أزرق بنفسجي
+        } else if (this.text.includes('def') || this.text.includes('import') || this.text.includes('pip')) {
+          color = `rgba(168, 85, 247, ${this.opacity})`; // بنفسجي
+        } else if (this.text.includes('const') || this.text.includes('function') || this.text.includes('console')) {
+          color = `rgba(34, 197, 94, ${this.opacity})`; // أخضر
+        } else if (this.text.includes('SELECT') || this.text.includes('INSERT')) {
+          color = `rgba(249, 115, 22, ${this.opacity})`; // برتقالي
+        } else {
+          color = `rgba(100, 108, 255, ${this.opacity})`;
+        }
+        
+        ctx.font = `${this.fontSize}px 'Fira Code', monospace`;
+        ctx.fillStyle = color;
+        ctx.shadowBlur = 0;
+        ctx.fillText(this.text, this.x, this.y);
+      }
     }
     
-    // إنشاء أكواد متحركة باستمرار
-    setInterval(createCodeLine, 800);
-    for (let i = 0; i < 25; i++) {
-      setTimeout(createCodeLine, i * 200);
+    function initCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      
+      particles = [];
+      const particleCount = Math.min(75, Math.floor(width / 18));
+      
+      for (let i = 0; i < particleCount; i++) {
+        const x = Math.random() * width;
+        const y = Math.random() * height;
+        const text = codeStrings[Math.floor(Math.random() * codeStrings.length)];
+        const speed = 0.3 + Math.random() * 1;
+        particles.push(new CodeParticle(x, y, text, speed));
+      }
     }
+    
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      
+      // خلفية بيضاء نظيفة
+      const gradient = ctx.createLinearGradient(0, 0, width, height);
+      gradient.addColorStop(0, '#fefefe');
+      gradient.addColorStop(0.5, '#f8faff');
+      gradient.addColorStop(1, '#f0f4ff');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+      
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      
+      requestAnimationFrame(animate);
+    }
+    
+    window.addEventListener('resize', () => {
+      initCanvas();
+    });
+    
+    initCanvas();
+    animate();
     
     // تشغيل الموسيقى
     const audio = document.getElementById('bgSong');
-    audio.volume = 0.4;
+    audio.volume = 0.35;
     audio.play().catch(e => {
-      console.log("Auto-play prevented, click anywhere to play");
       document.body.addEventListener('click', function playOnce() {
         audio.play();
         document.body.removeEventListener('click', playOnce);
